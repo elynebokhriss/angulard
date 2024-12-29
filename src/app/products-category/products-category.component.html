@@ -1,0 +1,34 @@
+<div class="container">
+  <h2>Produits de la catégorie {{ selectedCategoryId ? selectedCategoryId : 'Toutes' }}</h2>
+
+  <!-- Dropdown pour sélectionner une catégorie -->
+  <div class="form-group my-3">
+    <label for="categorySelect">Filtrer par catégorie :</label>
+    <select
+      id="categorySelect"
+      class="form-control"
+      [(ngModel)]="selectedCategoryId" (change)="onCategoryChange()"
+    >
+      <option [value]="0">Toutes les catégories</option>
+      <option *ngFor="let category of categories" [value]="category.id">
+        {{ category.title }}
+      </option>
+    </select>
+  </div>
+
+  <div class="row">
+    <ng-container *ngIf="filteredProducts && filteredProducts.length > 0; else noProducts">
+      <ng-container *ngFor="let product of filteredProducts">
+        <div class="col-md-4" style="margin-bottom: 20px;" >
+          <img [src]="product.image" [alt]="product.name" class="img-fluid h-50 w-75" appHighlight/>
+          <h3>{{ product.name }}</h3>
+          <p>Prix : {{ product.price }} €</p>
+          <p>Marque : {{ product.brand }}</p>
+        </div>
+      </ng-container>
+    </ng-container>
+    <ng-template #noProducts>
+      <p>Aucun produit trouvé pour cette catégorie.</p>
+    </ng-template>
+  </div>
+</div>

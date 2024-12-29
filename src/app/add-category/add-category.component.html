@@ -1,0 +1,76 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4">
+    {{ isEditMode ? 'Modifier une Catégorie' : 'Ajouter une Catégorie' }}
+  </h2>
+  <form (ngSubmit)="saveCategory()" #categoryForm="ngForm" novalidate>
+    <!-- Champ pour le titre -->
+    <div class="mb-3">
+      <label for="title" class="form-label">Titre <span class="text-danger">*</span></label>
+      <input
+        type="text"
+        id="title"
+        class="form-control"
+        [ngClass]="{'is-invalid': categoryForm.submitted && !title.valid}"
+        [(ngModel)]="newCategory.title"
+        name="title"
+        required
+      />
+      <div class="invalid-feedback">Le titre est requis.</div>
+    </div>
+
+    <!-- Champ pour l'image -->
+    <div class="mb-3">
+      <label for="image" class="form-label">URL de l'image <span class="text-danger">*</span></label>
+      <input
+        type="url"
+        id="image"
+        class="form-control"
+        [ngClass]="{'is-invalid': categoryForm.submitted && !image.valid}"
+        [(ngModel)]="newCategory.image"
+        name="image"
+        required
+      />
+      <div class="invalid-feedback">Une URL valide est requise.</div>
+    </div>
+
+    <!-- Champ pour la description -->
+    <div class="mb-3">
+      <label for="description" class="form-label">Description <span class="text-danger">*</span></label>
+      <textarea
+        id="description"
+        class="form-control"
+        [ngClass]="{'is-invalid': categoryForm.submitted && !description.valid}"
+        [(ngModel)]="newCategory.description"
+        name="description"
+        rows="3"
+        required
+      ></textarea>
+      <div class="invalid-feedback">La description est obligatoire.</div>
+    </div>
+
+    <!-- Champ pour la disponibilité -->
+    <div class="form-check mb-3">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="available"
+        [(ngModel)]="newCategory.available"
+        name="available"
+      />
+      <label class="form-check-label" for="available">
+        Disponible
+      </label>
+    </div>
+
+    <!-- Bouton de soumission -->
+    <div class="d-flex justify-content-center">
+      <button
+        type="submit"
+        class="btn btn-primary px-4"
+        [disabled]="!categoryForm.form.valid"
+      >
+        {{ isEditMode ? 'Mettre à jour' : 'Enregistrer' }}
+      </button>
+    </div>
+  </form>
+</div>

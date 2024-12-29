@@ -1,0 +1,37 @@
+<div class="container">
+  <a routerLink="/add-product" routerLinkActive="active">
+    <button class="btn btn-primary my-3">Ajouter produits</button>
+  </a>
+  <div class="mb-3">
+      <label for="search" class="form-label">Recherche par titre de catégorie:</label>
+      <input 
+          type="text" 
+          id="search" 
+          class="form-control" 
+          [(ngModel)]="titre" /> <!-- Liaison avec la propriété titre -->
+  </div>
+  <div class="row">
+      <ng-container *ngFor="let category of categories | filter:titre">
+          <div *ngIf="titre === '' || category.title.toLowerCase().includes(titre.toLowerCase())" 
+              class="col-md-4" style="margin-bottom: 20px;">
+              <div class="card">
+                <img [src]="category.image" [alt]="category.title" class="card-img-top"appHighlight>
+                <div class="card-body">
+                  <h5 class="card-title">{{ category.title }}</h5>
+                  <p class="card-text">{{ category.description }}</p>
+                  <div class="mt-2">
+                    <button class="btn btn-danger btn-sm" (click)="deleteCategory(category.id)">
+                      Supprimer
+                    </button>
+                    <a [routerLink]="['/update-category', category.id]">
+                      <button class="btn btn-success btn-sm mx-2">Modifier</button>
+                    </a>
+                  </div>
+                </div>
+              </div>
+          </div>
+      </ng-container>
+  </div>
+   <!-- Liste des Produits -->
+   <app-list-product></app-list-product>
+</div>

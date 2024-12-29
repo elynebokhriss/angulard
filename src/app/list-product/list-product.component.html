@@ -1,0 +1,22 @@
+<div class="container mt-4">
+    <h2>Liste des Produits</h2>
+    <div class="row">
+      <ng-container *ngFor="let product of listProducts">
+        <div class="col-md-4 my-2">
+          <div class="card">
+            <img [src]="product.image" class="card-img-top" appHighlight>
+            <div class="card-body">
+              <h5 class="card-title">{{ product.name }}</h5>
+              <p class="card-text">{{ product.description }}</p>
+              <div class="mt-2">
+                <a [routerLink]="['/product/', product.id]">
+                  <button class="btn btn-primary btn-sm">Voir Produit</button>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  
